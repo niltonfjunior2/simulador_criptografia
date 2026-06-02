@@ -3,32 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Criptografia Assimétrica Interativo</title>
+    <title>Simulador de Criptografia Assimétrica</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f7f6;
             color: #333;
-            padding: 20px;
+            padding: 15px;
             max-width: 1000px;
             margin: 0 auto;
         }
-        h1, h2, h3 {
+        h1 {
+            font-size: 1.8rem;
             text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        h3 {
+            font-size: 1.25rem;
             color: #2c3e50;
         }
         .container {
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
+        
+        /* Layout Base (Desktop): Duas colunas */
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
             margin-bottom: 20px;
         }
+        
         .card {
             background: #ecf0f1;
             padding: 20px;
@@ -47,7 +61,7 @@
         }
         input[type="text"], input[type="password"], textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 10px;
             border: 1px solid #bdc3c7;
             border-radius: 4px;
@@ -63,17 +77,18 @@
             background: #7f8c8d;
             color: white;
             border: none;
-            padding: 0 10px;
+            padding: 0 15px;
             border-radius: 0 4px 4px 0;
             cursor: pointer;
             font-size: 12px;
+            white-space: nowrap;
         }
         .input-with-btn {
             border-radius: 4px 0 0 4px !important;
         }
         button.action-btn {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             border: none;
             border-radius: 4px;
             color: white;
@@ -91,7 +106,7 @@
             background-color: #9c88ff;
             color: white;
             border: none;
-            padding: 8px 12px;
+            padding: 10px 12px;
             border-radius: 4px;
             cursor: pointer;
             font-size: 13px;
@@ -162,11 +177,32 @@
             margin-top: -5px;
             margin-bottom: 10px;
         }
+
+        /* RESPONSIVIDADE (Media Query para Celulares e Tablets) */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .container {
+                padding: 15px;
+            }
+            /* Transforma o grid de duas colunas em uma única coluna vertical */
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            input[type="text"], input[type="password"], textarea {
+                font-size: 16px; /* Evita que o iOS dê zoom automático indesejado nos inputs */
+            }
+        }
     </style>
 </head>
 <body>
 
-    <h1>Simulador de Criptografia Assimétrica</h1>
+    <h1>Simulador Interativo de Criptografia Assimétrica</h1>
     <div class="info">
         <strong>Instruções:</strong> O Receptor deve definir suas próprias palavras-chave (Pública e Privada) no bloco superior. 
         O Remetente usará a chave pública digitada para cifrar qualquer mensagem. 
@@ -258,8 +294,6 @@
     </div>
 
     <script>
-        // Parâmetros estruturais matemáticos baseados nas novas configurações:
-        // Módulo N = 253, Expoente Público e = 7, Expoente Privado d = 63
         const RSA = {
             n: 253,
             e: 7,
