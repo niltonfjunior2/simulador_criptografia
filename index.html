@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Criptografia Assimétrica</title>
+    <title>Simulador de Criptografia: Simétrica vs Assimétrica</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -13,45 +14,92 @@
             max-width: 1000px;
             margin: 0 auto;
         }
+
         h1 {
             font-size: 1.8rem;
             text-align: center;
             color: #2c3e50;
             margin-bottom: 10px;
         }
+
         h2 {
             font-size: 1.4rem;
             color: #2c3e50;
             margin-top: 0;
         }
+
         h3 {
             font-size: 1.25rem;
             color: #2c3e50;
         }
+
         .container {
             background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dcdde1;
+            border-top: none;
         }
-        
-        /* Layout Base (Desktop): Duas colunas */
+
+        /* Sistema de Abas Didáticas */
+        .tabs {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            cursor: pointer;
+            background: #dcdde1;
+            border: 1px solid #bdc3c7;
+            border-bottom: none;
+            border-radius: 8px 8px 0 0;
+            font-weight: bold;
+            color: #7f8c8d;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #2c3e50;
+            border-bottom: 2px solid white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Layout Grid */
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
             margin-bottom: 20px;
         }
-        
+
         .card {
             background: #ecf0f1;
             padding: 20px;
             border-radius: 6px;
             border-left: 5px solid #3498db;
         }
+
         .card.private {
             border-left-color: #e74c3c;
         }
+
+        .card.symmetric {
+            border-left-color: #16a085;
+        }
+
         label {
             font-weight: bold;
             display: block;
@@ -59,7 +107,10 @@
             color: #34495e;
             margin-top: 10px;
         }
-        input[type="text"], input[type="password"], textarea {
+
+        input[type="text"],
+        input[type="password"],
+        textarea {
             width: 100%;
             padding: 12px;
             margin-bottom: 10px;
@@ -69,10 +120,12 @@
             font-family: monospace;
             font-size: 14px;
         }
+
         .input-group {
             position: relative;
             display: flex;
         }
+
         .btn-toggle {
             background: #7f8c8d;
             color: white;
@@ -83,9 +136,11 @@
             font-size: 12px;
             white-space: nowrap;
         }
+
         .input-with-btn {
             border-radius: 4px 0 0 4px !important;
         }
+
         button.action-btn {
             width: 100%;
             padding: 14px;
@@ -97,11 +152,31 @@
             transition: background 0.3s;
             margin-top: 10px;
         }
-        .btn-encrypt { background-color: #3498db; }
-        .btn-encrypt:hover { background-color: #2980b9; }
-        .btn-decrypt { background-color: #e74c3c; }
-        .btn-decrypt:hover { background-color: #c0392b; }
-        
+
+        .btn-encrypt {
+            background-color: #3498db;
+        }
+
+        .btn-encrypt:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-decrypt {
+            background-color: #e74c3c;
+        }
+
+        .btn-decrypt:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-symmetric-act {
+            background-color: #16a085;
+        }
+
+        .btn-symmetric-act:hover {
+            background-color: #117a65;
+        }
+
         .btn-math {
             background-color: #9c88ff;
             color: white;
@@ -114,7 +189,10 @@
             width: 100%;
             transition: background 0.3s;
         }
-        .btn-math:hover { background-color: #8c7ae6; }
+
+        .btn-math:hover {
+            background-color: #8c7ae6;
+        }
 
         .result-box {
             background: #2c3e50;
@@ -127,6 +205,7 @@
             font-size: 15px;
             margin-top: 5px;
         }
+
         .math-log {
             background: #273c75;
             color: #f5f6fa;
@@ -140,6 +219,7 @@
             border-top: 3px solid #9c88ff;
             display: none;
         }
+
         .math-explanation {
             background-color: #f8f9fa;
             border: 1px solid #dcdde1;
@@ -151,6 +231,7 @@
             color: #2f3640;
             display: none;
         }
+
         .math-explanation code {
             background: #dcdde1;
             padding: 2px 5px;
@@ -158,10 +239,7 @@
             font-family: monospace;
             font-weight: bold;
         }
-        .math-explanation ul {
-            margin-top: 5px;
-            padding-left: 20px;
-        }
+
         .info {
             background-color: #e8f4f8;
             border: 1px solid #bce1ec;
@@ -171,6 +249,7 @@
             font-size: 14px;
             line-height: 1.5;
         }
+
         .hint {
             font-size: 11px;
             color: #7f8c8d;
@@ -178,149 +257,227 @@
             margin-bottom: 10px;
         }
 
-        /* RESPONSIVIDADE (Media Query para Celulares e Tablets) */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            h1 {
-                font-size: 1.5rem;
-            }
-            .container {
-                padding: 15px;
-            }
-            /* Transforma o grid de duas colunas em uma única coluna vertical */
             .grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
             }
-            input[type="text"], input[type="password"], textarea {
-                font-size: 16px; /* Evita que o iOS dê zoom automático indesejado nos inputs */
+
+            input[type="text"],
+            input[type="password"],
+            textarea {
+                font-size: 16px;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                border-radius: 4px;
+                margin-bottom: 5px;
             }
         }
     </style>
 </head>
+
 <body>
 
-    <h1>Simulador Interativo de Criptografia Assimétrica</h1>
+    <h1>Simulador Pedagógico de Criptografia</h1>
     <div class="info">
-        <strong>Instruções:</strong> O Receptor deve definir suas próprias palavras-chave (Pública e Privada) no bloco superior. 
-        O Remetente usará a chave pública digitada para cifrar qualquer mensagem. 
-        O Receptor usará a sua chave privada para descriptografar. Clique nos botões "Mostrar Matemática Aplicada" se desejar revelar os cálculos modulares utilizados para cifrar e decifrar a mensagem.
+        <strong>Uso em Aula:</strong> Alterne entre as abas superiores para demonstrar a diferença prática entre os dois
+        modelos de chaves abordados na ementa.
+    </div>
+
+    <div class="tabs">
+        <div class="tab-btn active" onclick="switchTab(event, 'aba-assimetrica')">Aba 1: Chaves Assimétricas (RSA)</div>
+        <div class="tab-btn" onclick="switchTab(event, 'aba-simetrica')">Aba 2: Chave Simétrica (Vigenère)</div>
     </div>
 
     <div class="container">
-        
-        <div class="grid">
-            <div class="card">
-                <h2>Chave Pública do Receptor</h2>
-                <p class="hint">Disponível para qualquer pessoa que queira enviar mensagens cifradas.</p>
-                <label for="pubKeyInput">Digite a palavra da Chave Pública:</label>
-                <input type="text" id="pubKeyInput" value="" placeholder="Ex: MINHA_CHAVE_PUB">
+
+        <div id="aba-assimetrica" class="tab-content active">
+            <div class="grid">
+                <div class="card">
+                    <h2>Chave Pública do Receptor</h2>
+                    <p class="hint">Disponível publicamente para cifrar mensagens.</p>
+                    <label for="pubKeyInput">Palavra da Chave Pública:</label>
+                    <input type="text" id="pubKeyInput" value="CHAVE_PUBLICA_UEMG">
+                </div>
+                <div class="card private">
+                    <h2>Chave Privada do Receptor</h2>
+                    <p class="hint">Secreta. Apenas ela consegue abrir a mensagem.</p>
+                    <label for="privKeyInput">Palavra da Chave Privada:</label>
+                    <div class="input-group">
+                        <input type="password" id="privKeyInput" class="input-with-btn" value="SEGREDOPRIVADO123">
+                        <button class="btn-toggle" type="button"
+                            onclick="togglePasswordVisibility('privKeyInput', this)">Revelar 👁️</button>
+                    </div>
+                </div>
             </div>
-            <div class="card private">
-                <h2>Chave Privada do Receptor</h2>
-                <p class="hint">Secreta e exclusiva. Nunca deve ser compartilhada.</p>
-                <label for="privKeyInput">Digite a palavra da Chave Privada:</label>
-                <div class="input-group">
-                    <input type="password" id="privKeyInput" class="input-with-btn" value="" placeholder="Ex: MINHA_CHAVE_PRIV">
-                    <button class="btn-toggle" type="button" onclick="togglePasswordVisibility()">Revelar 👁️</button>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+
+            <div class="grid">
+                <div>
+                    <h3>1. Cifrar com Chave Pública (Remetente)</h3>
+                    <label for="plainText">Texto Original:</label>
+                    <textarea id="plainText" rows="2">Sistemas de Informação</textarea>
+
+                    <label for="keyUsedEncrypt">Chave Pública Ativa Utilizada:</label>
+                    <input type="text" id="keyUsedEncrypt">
+
+                    <button class="action-btn btn-encrypt" onclick="executarCifragemRSA()">Cifrar Mensagem Assimétrica
+                        🔒</button>
+
+                    <h4>Texto Cifrado Resultante (Números):</h4>
+                    <div class="result-box" id="cipherResult">Aguardando ação...</div>
+
+                    <button class="btn-math" id="btnShowEncryptMath"
+                        onclick="toggleMathLog('encryptMathLog', 'btnShowEncryptMath', 'encryptExplanation')">Mostrar
+                        Matemática Aplicada 📊</button>
+                    <div class="math-log" id="encryptMathLog">Os cálculos aparecerão aqui.</div>
+                    <div class="math-explanation" id="encryptExplanation">
+                        <h4>Matemática da Cifragem Assimétrica (RSA)</h4>
+                        <p>O caractere é convertido para seu código ASCII decimal (<code>M</code>) usando
+                            <code>charCodeAt(0)</code>. Em seguida, aplica-se a potência do expoente público (<strong>e
+                                = 7</strong>) sob o resto da divisão do módulo base (<strong>N = 253</strong>). Fórmula:
+                            <code>C = (M⁷) mod 253</code>.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>2. Decifrar com Chave Privada (Receptor)</h3>
+                    <label for="cipherText">Texto Cifrado Recebido:</label>
+                    <textarea id="cipherText" rows="2"></textarea>
+
+                    <label for="keyUsedDecrypt">Digite a Chave para Decifrar:</label>
+                    <input type="password" id="keyUsedDecrypt" placeholder="Tente a pública ou a privada">
+
+                    <button class="action-btn btn-decrypt" onclick="executarDecifragemRSA()">Decifrar Mensagem
+                        Assimétrica 🔓</button>
+
+                    <h4>Texto Original Recuperado:</h4>
+                    <div class="result-box" id="plainResult" style="color: #3498db;">Aguardando ação...</div>
+
+                    <button class="btn-math" id="btnShowDecryptMath"
+                        onclick="toggleMathLog('decryptMathLog', 'btnShowDecryptMath', 'decryptExplanation')">Mostrar
+                        Matemática Aplicada 📊</button>
+                    <div class="math-log" id="decryptMathLog">Os cálculos aparecerão aqui.</div>
+                    <div class="math-explanation" id="decryptExplanation">
+                        <h4>Matemática da Decifragem Assimétrica (RSA)</h4>
+                        <p>Para reverter o cálculo sem conhecer o ASCII original, aplica-se o expoente complementar
+                            secreto da chave privada (<strong>d = 63</strong>). Devido às propriedades dos teoremas
+                            modulares, a operação <code>M = (C⁶³) mod 253</code> reconstrói com exatidão o código ASCII
+                            de origem, restaurando a letra correspondente.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
-
-        <div class="grid">
-            
-            <div>
-                <h3>1. Cifrar Mensagem (Remetente)</h3>
-                
-                <label for="plainText">Texto Original (Qualquer caractere):</label>
-                <textarea id="plainText" rows="2" placeholder="Digite aqui a mensagem"></textarea>
-                
-                <label for="keyUsedEncrypt">Chave Pública Ativa Utilizada:</label>
-                <input type="text" id="keyUsedEncrypt" placeholder="Aguardando sincronização...">
-                
-                <button class="action-btn btn-encrypt" onclick="executarCifragem()">Cifrar Mensagem 🔒</button>
-                
-                <h4 style="margin-top: 15px;">Texto Cifrado Resultante:</h4>
-                <div class="result-box" id="cipherResult">Aguardando ação...</div>
-
-                <button class="btn-math" id="btnShowEncryptMath" onclick="toggleMathLog('encryptMathLog', 'btnShowEncryptMath', 'encryptExplanation')">Mostrar Matemática Aplicada 📊</button>
-                <div class="math-log" id="encryptMathLog">Os cálculos aparecerão aqui após a cifragem.</div>
-                
-                <div class="math-explanation" id="encryptExplanation">
-                    <h4>Como funciona a matemática da Cifragem?</h4>
-                    <p>O simulador converte cada caractere de forma independente usando o princípio estrutural do algoritmo <strong>RSA</strong>. O processo ocorre em três etapas fundamentais:</p>
-                    <ul>
-                        <li><strong>Mapeamento Numérico (ASCII):</strong> O sistema captura o caractere e usa a função interna <code>charCodeAt(0)</code> para extrair o código numérico real da tabela ASCII (por exemplo, a letra 'A' é o número 65, o símbolo '!' é o número 33).</li>
-                        <li><strong>Exponenciação da Chave:</strong> O código numérico original (chamado de <code>M</code>) é elevado à potência do expoente público do sistema, definido neste ambiente como <strong>e = 7</strong>. Matematicamente, calcula-se <code>M⁷</code>.</li>
-                        <li><strong>Aritmética Modular (Engrenagem Numérica):</strong> O resultado da potência passa pela operação de módulo (resto da divisão inteira) utilizando o número base <strong>N = 253</strong>. A fórmula final executada pelo Remetente é: <code>C = (M⁷) mod 253</code>. O valor resultante <code>C</code> é o número cifrado que pode trafegar de forma segura.</li>
-                    </ul>
+        <div id="aba-simetrica" class="tab-content">
+            <div class="grid">
+                <div class="card symmetric" style="grid-column: 1 / -1;">
+                    <h2>Compartilhamento de Chave Simétrica Única</h2>
+                    <p class="hint">Neste modelo, o Remetente e o Receptor **precisam combinar previamente** a mesma
+                        palavra-chave secreta.</p>
+                    <label for="symKeyInput">Defina a Palavra-Chave Secreta Compartilhada:</label>
+                    <div class="input-group">
+                        <input type="password" id="symKeyInput" class="input-with-btn" value="tecnologia">
+                        <button class="btn-toggle" type="button"
+                            onclick="togglePasswordVisibility('symKeyInput', this)">Revelar 👁️</button>
+                    </div>
                 </div>
             </div>
 
-            <div>
-                <h3>2. Decifrar Mensagem (Receptor)</h3>
-                
-                <label for="cipherText">Texto Cifrado Recebido (Blocos Numéricos):</label>
-                <textarea id="cipherText" rows="2" placeholder="Cole aqui os números gerados separados por vírgula"></textarea>
-                
-                <label for="keyUsedDecrypt">Digite a Chave para Decifrar:</label>
-                <input type="password" id="keyUsedDecrypt" placeholder="Insira a chave aqui (tente a pública ou a privada)">
-                
-                <button class="action-btn btn-decrypt" onclick="executarDecifragem()">Decifrar Mensagem 🔓</button>
-                
-                <h4 style="margin-top: 15px;">Texto Original Recuperado:</h4>
-                <div class="result-box" id="plainResult" style="color: #3498db;">Aguardando ação...</div>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
 
-                <button class="btn-math" id="btnShowDecryptMath" onclick="toggleMathLog('decryptMathLog', 'btnShowDecryptMath', 'decryptExplanation')">Mostrar Matemática Aplicada 📊</button>
-                <div class="math-log" id="decryptMathLog">Os cálculos aparecerão aqui após a decifragem.</div>
-                
-                <div class="math-explanation" id="decryptExplanation">
-                    <h4>Como funciona a matemática da Decifragem?</h4>
-                    <p>A decifragem prova o conceito de <strong>função de mão única com alçapão</strong>. Para reverter o cálculo modular anterior sem ter que testar números por força bruta, o Receptor usa a sua chave secreta como um atalho algébrico:</p>
-                    <ul>
-                        <li><strong>O Alçapão Inverso:</strong> O par de chaves em um sistema RSA obedece à regra estrita onde <code>(e * d) mod φ(N) = 1</code>. Para este ambiente didático operar com qualquer caractere padrão do teclado, os números primos de base escolhidos foram 11 e 23, gerando o módulo <strong>N = 253</strong> e uma função Totiente de Euler <code>φ(N) = 10 * 22 = 220</code>. Como configuramos o expoente público como <strong>e = 7</strong>, a matemática nos obriga a usar o expoente privado complementar secreto <strong>d = 63</strong>, pois <code>(7 * 63) = 441</code>, e <code>441 mod 220 = 1</code>.</li>
-                        <li><strong>Cálculo do Atalho:</strong> Quando o Receptor valida o acesso com a chave privada correta, o sistema pega cada número cifrado recebido (<code>C</code>) e o eleva à potência secreta de 63 (<code>C⁶³</code>).</li>
-                        <li><strong>Restauração Modular:</strong> Ao aplicar o resto da divisão pelo módulo (<code>mod 253</code>), as propriedades dos teoremas aritméticos garantem a restauração exata do código ASCII original: <code>M = (C⁶³) mod 253</code>. O JavaScript então traduz esse número de volta na letra legível usando <code>String.fromCharCode(m)</code>.</li>
-                        <li><strong>O comportamento do hacker:</strong> Se você tentar usar a chave pública para descriptografar, o script rodará a fórmula simulando o expoente errado (usando 7 de novo em vez de 63). Como 7 não é o inverso multiplicativo de si mesmo sob o módulo 220, a equação quebra e gera apenas símbolos corrompidos.</li>
-                    </ul>
+            <div class="grid">
+                <div>
+                    <h3>1. Cifrar (Mesma Chave)</h3>
+                    <label for="plainTextSym">Texto Original (A-Z):</label>
+                    <textarea id="plainTextSym" rows="2">Sistemas de Informação</textarea>
+
+                    <button class="action-btn btn-symmetric-act" onclick="executarCifragemSimetrica()">Cifrar Mensagem
+                        Simétrica 🔒</button>
+
+                    <h4>Texto Cifrado Resultante (Letras):</h4>
+                    <div class="result-box" id="cipherResultSym" style="color: #1abc9c;">Aguardando ação...</div>
+
+                    <button class="btn-math" id="btnShowSymEncMath"
+                        onclick="toggleMathLog('symEncMathLog', 'btnShowSymEncMath', 'symEncExplanation')">Mostrar
+                        Matemática Aplicada 📊</button>
+                    <div class="math-log" id="symEncMathLog">Os cálculos aparecerão aqui.</div>
+                    <div class="math-explanation" id="symEncExplanation">
+                        <h4>Matemática da Cifragem Simétrica (Vigenère)</h4>
+                        <p>O texto e a chave são convertidos para posições de 0 a 25 (A=0, B=1...). A palavra-chave é
+                            repetida sob a mensagem. Aplica-se a fórmula:
+                            <code>Posição_Cifrada = (Posição_Original + Deslocamento_Chave) mod 26</code>. Se passar de
+                            25, o alfabeto reinicia.</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>2. Decifrar (Mesma Chave)</h3>
+                    <label for="cipherTextSym">Texto Cifrado Recebido:</label>
+                    <textarea id="cipherTextSym" rows="2"></textarea>
+
+                    <button class="action-btn btn-symmetric-act" onclick="executarDecifragemSimetrica()">Decifrar
+                        Mensagem Simétrica 🔓</button>
+
+                    <h4>Texto Original Recuperado:</h4>
+                    <div class="result-box" id="plainResultSym" style="color: #3498db;">Aguardando ação...</div>
+
+                    <button class="btn-math" id="btnShowSymDecMath"
+                        onclick="toggleMathLog('symDecMathLog', 'btnShowSymDecMath', 'symDecExplanation')">Mostrar
+                        Matemática Aplicada 📊</button>
+                    <div class="math-log" id="symDecMathLog">Os cálculos aparecerão aqui.</div>
+                    <div class="math-explanation" id="symDecExplanation">
+                        <h4>Matemática da Decifragem Simétrica (Vigenère)</h4>
+                        <p>O processo realiza a operação matemática inversa da cifragem, realizando a subtração
+                            alfabética elemento por elemento:
+                            <code>Posição_Original = (Posição_Cifrada - Deslocamento_Chave + 26) mod 26</code>.
+                            Adiciona-se 26 para evitar resultados negativos na aritmética modular.</p>
+                    </div>
                 </div>
             </div>
-
         </div>
+
     </div>
 
     <script>
-        const RSA = {
-            n: 253,
-            e: 7,
-            d: 63
+        const RSA = { n: 253, e: 7, d: 63 };
+        const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        window.onload = function () {
+            sincronizarChaveRSA();
+            document.getElementById('pubKeyInput').addEventListener('input', sincronizarChaveRSA);
         };
 
-        window.onload = function() {
-            sincronizarChavePublica();
-            document.getElementById('pubKeyInput').addEventListener('input', sincronizarChavePublica);
-        };
+        function switchTab(evt, tabId) {
+            const contents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < contents.length; i++) contents[i].classList.remove("active");
 
-        function sincronizarChavePublica() {
-            const pubKeyAtual = document.getElementById('pubKeyInput').value;
-            const campoRemetente = document.getElementById('keyUsedEncrypt');
-            campoRemetente.value = pubKeyAtual;
-            campoRemetente.readOnly = true;
-            campoRemetente.style.backgroundColor = "#f5f6fa";
+            const buttons = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < buttons.length; i++) buttons[i].classList.remove("active");
+
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
         }
 
-        function togglePasswordVisibility() {
-            const privInput = document.getElementById('privKeyInput');
-            const btn = document.querySelector('.btn-toggle');
-            if (privInput.type === "password") {
-                privInput.type = "text";
+        function sincronizarChaveRSA() {
+            document.getElementById('keyUsedEncrypt').value = document.getElementById('pubKeyInput').value;
+            document.getElementById('keyUsedEncrypt').readOnly = true;
+            document.getElementById('keyUsedEncrypt').style.backgroundColor = "#f5f6fa";
+        }
+
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
                 btn.innerText = "Ocultar 🔒";
             } else {
-                privInput.type = "password";
+                input.type = "password";
                 btn.innerText = "Revelar 👁️";
             }
         }
@@ -329,134 +486,126 @@
             const logBox = document.getElementById(idLog);
             const expBox = document.getElementById(idExplanation);
             const btn = document.getElementById(idBotao);
-            
+
             if (logBox.style.display === "none" || logBox.style.display === "") {
-                logBox.style.display = "block";
-                expBox.style.display = "block";
-                btn.innerText = "Ocultar Matemática Aplicada ✖";
-                btn.style.backgroundColor = "#718093";
+                logBox.style.display = "block"; expBox.style.display = "block";
+                btn.innerText = "Ocultar Matemática Aplicada ✖"; btn.style.backgroundColor = "#718093";
             } else {
-                logBox.style.display = "none";
-                expBox.style.display = "none";
-                btn.innerText = "Mostrar Matemática Aplicada 📊";
-                btn.style.backgroundColor = "#9c88ff";
+                logBox.style.display = "none"; expBox.style.display = "none";
+                btn.innerText = "Mostrar Matemática Aplicada 📊"; btn.style.backgroundColor = "#9c88ff";
             }
         }
 
         function powerMod(base, exp, mod) {
             let res = 1n;
-            base = BigInt(base) % BigInt(mod);
-            exp = BigInt(exp);
+            base = BigInt(base) % BigInt(mod); exp = BigInt(exp);
             while (exp > 0n) {
                 if (exp % 2n === 1n) res = (res * base) % BigInt(mod);
-                base = (base * base) % BigInt(mod);
-                exp = exp / 2n;
+                base = (base * base) % BigInt(mod); exp = exp / 2n;
             }
             return Number(res);
         }
 
-        function executarCifragem() {
+        /* --- LÓGICA RSA --- */
+        function executarCifragemRSA() {
             const texto = document.getElementById('plainText').value;
-            const pubKeyConfig = document.getElementById('pubKeyInput').value.trim();
-            
-            const resultadoDiv = document.getElementById('cipherResult');
-            const mathLogDiv = document.getElementById('encryptMathLog');
+            const resDiv = document.getElementById('cipherResult');
+            const logDiv = document.getElementById('encryptMathLog');
+            if (!texto) return;
 
-            if (!texto) {
-                resultadoDiv.innerText = "Erro: Digite um texto original.";
-                return;
-            }
-
-            if (!pubKeyConfig) {
-                resultadoDiv.style.color = "#e74c3c";
-                resultadoDiv.innerText = "ERRO: O campo de Chave Pública do Receptor não pode estar vazio.";
-                return;
-            }
-
-            let numerosCifrados = [];
-            let logsMatematicos = [];
-
-            logsMatematicos.push(`Usando a Chave Pública ativa do sistema: "${pubKeyConfig}"`);
-            logsMatematicos.push(`Expoente Público (e) = ${RSA.e} | Módulo (N) = ${RSA.n}\n`);
-            logsMatematicos.push(`Fórmula Aplicada: Cifragem = (Código_ASCII ^ e) mod N\n`);
+            let numCifrados = [], logs = [];
+            logs.push(`Fórmula: C = (ASCII ^ ${RSA.e}) mod ${RSA.n}\n`);
 
             for (let i = 0; i < texto.length; i++) {
-                let char = texto[i];
-                let m = char.charCodeAt(0);
-
+                let m = texto.charCodeAt(0 + i);
                 let c = powerMod(m, RSA.e, RSA.n);
-                numerosCifrados.push(c);
-
-                logsMatematicos.push(`Caractere '${char}' -> Código ASCII: ${m} | Conta: (${m} ^ ${RSA.e}) mod ${RSA.n} = Resultado Cifrado: ${c}`);
+                numCifrados.push(c);
+                logs.push(`'${texto[i]}' -> ASCII: ${m} | (${m} ^ ${RSA.e}) mod ${RSA.n} = ${c}`);
             }
-
-            resultadoDiv.style.color = "#2ecc71";
-            resultadoDiv.innerText = numerosCifrados.join(",");
-            mathLogDiv.innerText = logsMatematicos.join("\n");
-
-            document.getElementById('cipherText').value = numerosCifrados.join(",");
+            resDiv.innerText = numCifrados.join(",");
+            logDiv.innerText = logs.join("\n");
+            document.getElementById('cipherText').value = numCifrados.join(",");
         }
 
-        function executarDecifragem() {
-            const cifraString = document.getElementById('cipherText').value.trim();
-            const secretKeyInserida = document.getElementById('keyUsedDecrypt').value.trim();
-            
-            const pubKeyConfig = document.getElementById('pubKeyInput').value.trim();
-            const privKeyConfig = document.getElementById('privKeyInput').value.trim();
-            
-            const resultadoDiv = document.getElementById('plainResult');
-            const mathLogDiv = document.getElementById('decryptMathLog');
+        function executarDecifragemRSA() {
+            const cifraStr = document.getElementById('cipherText').value.trim();
+            const key = document.getElementById('keyUsedDecrypt').value.trim();
+            const resDiv = document.getElementById('plainResult');
+            const logDiv = document.getElementById('decryptMathLog');
 
-            if (!cifraString) {
-                resultadoDiv.style.color = "#e74c3c";
-                resultadoDiv.innerText = "Erro: Insira os números do texto cifrado.";
-                return;
+            if (key === document.getElementById('pubKeyInput').value.trim()) {
+                resDiv.style.color = "#e67e22"; resDiv.innerText = "FALHA: A Chave Pública não abre dados."; return;
+            }
+            if (key !== document.getElementById('privKeyInput').value.trim()) {
+                resDiv.style.color = "#e74c3c"; resDiv.innerText = "Erro: Chave Incorreta."; return;
             }
 
-            if (secretKeyInserida === pubKeyConfig) {
-                resultadoDiv.style.color = "#e67e22";
-                resultadoDiv.innerText = "FALHA CONCEITUAL: Você tentou descriptografar usando a Chave Pública. Como ela não possui o 'alçapão matemático inverso' (Chave Privada), o resultado é apenas ruído ilegível.";
-                
-                let numeros = cifraString.split(",");
-                let textoErrado = "";
-                for(let n of numeros) {
-                    let mErrado = powerMod(parseInt(n), RSA.e, RSA.n);
-                    textoErrado += String.fromCharCode(mErrado % 127);
-                }
-                mathLogDiv.innerText = `Tentativa frustrada usando Chave Pública:\nFórmula rodou com expoente errado (e=${RSA.e}) e gerou o lixo de dados: ${textoErrado}`;
-                return;
-            }
+            let nums = cifraStr.split(","), texto = "", logs = [];
+            logs.push(`Fórmula: M = (Cifragem ^ ${RSA.d}) mod ${RSA.n}\n`);
 
-            if (secretKeyInserida !== privKeyConfig) {
-                resultadoDiv.style.color = "#e74c3c";
-                resultadoDiv.innerText = "ACESSO NEGADO: Chave privada incorreta ou desconhecida. O segredo permanece trancado.";
-                mathLogDiv.innerText = "A tentativa de ataque falhou.";
-                return;
-            }
-
-            let numeros = cifraString.split(",");
-            let textoDescoberto = "";
-            let logsMatematicos = [];
-
-            logsMatematicos.push(`Autenticado com a Chave Privada Secreta do Receptor!`);
-            logsMatematicos.push(`Expoente Privado (d) = ${RSA.d} | Módulo (N) = ${RSA.n}\n`);
-            logsMatematicos.push(`Fórmula Aplicada: Decifragem = (Número_Cifrado ^ d) mod N\n`);
-
-            for (let i = 0; i < numeros.length; i++) {
-                let c = parseInt(numeros[i]);
-                if (isNaN(c)) continue;
-                
+            for (let n of nums) {
+                let c = parseInt(n); if (isNaN(c)) continue;
                 let m = powerMod(c, RSA.d, RSA.n);
-                let caractere = String.fromCharCode(m);
-                textoDescoberto += caractere;
-
-                logsMatematicos.push(`Número Cifrado: ${c} | Conta: (${c} ^ ${RSA.d}) mod ${RSA.n} = Código ASCII: ${m} -> Caractere original: '${caractere}'`);
+                texto += String.fromCharCode(m);
+                logs.push(`Número: ${c} | (${c} ^ ${RSA.d}) mod ${RSA.n} = ASCII: ${m} -> '${String.fromCharCode(m)}'`);
             }
+            resDiv.style.color = "#2ecc71"; resDiv.innerText = texto;
+            logDiv.innerText = logs.join("\n");
+        }
 
-            resultadoDiv.style.color = "#2ecc71";
-            resultadoDiv.innerText = textoDescoberto;
-            mathLogDiv.innerText = logsMatematicos.join("\n");
+        /* --- LÓGICA VIGENÈRE (SIMÉTRICA) --- */
+        function limparTexto(txt) {
+            return txt.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().replace(/[^A-Z]/g, "");
+        }
+
+        function executarCifragemSimetrica() {
+            const txtOrig = document.getElementById('plainTextSym').value;
+            const txtLimpo = limparTexto(txtOrig);
+            const chave = limparTexto(document.getElementById('symKeyInput').value);
+            const resDiv = document.getElementById('cipherResultSym');
+            const logDiv = document.getElementById('symEncMathLog');
+
+            if (!txtLimpo || !chave) { resDiv.innerText = "Erro: Texto ou chave vazios."; return; }
+
+            let cifrado = "", logs = [];
+            logs.push(`Fórmula: C = (Pos_Mensagem + Pos_Chave) mod 26\n`);
+
+            for (let i = 0; i < txtLimpo.length; i++) {
+                let mIdx = alfabeto.indexOf(txtLimpo[i]);
+                let kChar = chave[i % chave.length];
+                let kIdx = alfabeto.indexOf(kChar);
+                let cIdx = (mIdx + kIdx) % 26;
+                cifrado += alfabeto[cIdx];
+                logs.push(`Mensagem: ${txtLimpo[i]}(${mIdx}) + Chave: ${kChar}(${kIdx}) = Sum: ${mIdx + kIdx} | mod 26 = ${cIdx}(${alfabeto[cIdx]})`);
+            }
+            resDiv.innerText = cifrado;
+            logDiv.innerText = logs.join("\n");
+            document.getElementById('cipherTextSym').value = cifrado;
+        }
+
+        function executarDecifragemSimetrica() {
+            const txtCifrado = limparTexto(document.getElementById('cipherTextSym').value);
+            const chave = limparTexto(document.getElementById('symKeyInput').value);
+            const resDiv = document.getElementById('plainResultSym');
+            const logDiv = document.getElementById('symDecMathLog');
+
+            if (!txtCifrado || !chave) return;
+
+            let decifrado = "", logs = [];
+            logs.push(`Fórmula: M = (Pos_Cifrada - Pos_Chave + 26) mod 26\n`);
+
+            for (let i = 0; i < txtCifrado.length; i++) {
+                let cIdx = alfabeto.indexOf(txtCifrado[i]);
+                let kChar = chave[i % chave.length];
+                let kIdx = alfabeto.indexOf(kChar);
+                let mIdx = (cIdx - kIdx + 26) % 26;
+                decifrado += alfabeto[mIdx];
+                logs.push(`Cifrado: ${txtCifrado[i]}(${cIdx}) - Chave: ${kChar}(${kIdx}) = Diff: ${cIdx - kIdx} | mod 26 = ${mIdx}(${alfabeto[mIdx]})`);
+            }
+            resDiv.innerText = decifrado;
+            logDiv.innerText = logs.join("\n");
         }
     </script>
 </body>
+
 </html>

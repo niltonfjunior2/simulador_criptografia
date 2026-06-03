@@ -1,73 +1,96 @@
-# 🔒 Simulador de Criptografia Assimétrica (RSA Didático)
+# 🔒 Simulador Pedagógico de Criptografia: Simétrica vs. Assimétrica
 
-Este é um projeto de código aberto desenvolvido para fins puramente **didáticos e acadêmicos**. O objetivo é tangibilizar os conceitos abstratos de criptografia de chaves públicas (assimétrica) para estudantes de graduação em Computação, Engenharia e Sistemas de Informação, utilizando uma interface visual interativa executada diretamente no navegador.
+Este é um projeto web interativo e de código aberto desenvolvido para fins **didáticos e acadêmicos**. O objetivo é facilitar a compreensão prática e visual dos dois principais modelos de criptografia estudados em disciplinas de Segurança da Informação, Redes de Computadores e Sistemas de Informação: a **Criptografia Simétrica** (representada pela Cifra de Vigenère) e a **Criptografia Assimétrica** (representada pelo algoritmo RSA didático).
 
-O simulador implementa uma versão reduzida e simplificada do algoritmo **RSA**, permitindo que os usuários configurem suas próprias chaves em formato de texto, cifrem mensagens em tempo real e analisem detalhadamente o "alçapão matemático" por trás da operação através da aritmética modular.
-
----
-
-## 🚀 Funcionalidades
-
-- **Chaves Baseadas em Palavras:** Permite que o Receptor cadastre strings de texto personalizadas para funcionar como as "âncoras" de sua Chave Pública e Chave Privada.
-- **Entrada Oculta e Revelável:** A Chave Privada utiliza mascaramento nativo (type="password") com a opção de revelação (👁️) para demonstrar o controle de privacidade.
-- **Sincronização Dinâmica:** O painel do Remetente lê automaticamente a chave pública ativa do Receptor, simulando um ambiente de rede real onde chaves públicas são consumidas de um repositório central.
-- **Suporte Total a Caracteres:** Aceita qualquer caractere (letras maiúsculas, minúsculas, números, acentuação e símbolos) através do mapeamento direto na tabela ASCII estendida.
-- **Simulação de Falha Conceitual (Ataque):** Se o usuário tentar descriptografar uma mensagem utilizando a chave pública, o sistema demonstra visualmente a quebra do cálculo e gera dados corrompidos propositalmente.
-- **Matemática Sob Demanda:** Paineis expansíveis revelam o passo a passo matemático de cada caractere processado e fornecem uma explicação teórica robusta sobre as fórmulas aplicadas.
+O simulador é executado inteiramente no navegador (client-side), oferecendo explicações matemáticas em tempo real e permitindo que estudantes experimentem e contrastem os dois modelos de maneira intuitiva.
 
 ---
 
-## 🧮 Parâmetros Matemáticos Aplicados
+## 🚀 Funcionalidades Principais
 
-Para viabilizar o cálculo em tempo real em navegadores sem sobrecarga computacional, o simulador utiliza chaves reduzidas estruturadas sob os seguintes critérios algébricos:
+O projeto é dividido em duas abas didáticas que separam claramente os conceitos:
 
-- **Números Primos de Base (p, q):** 11 e 23
-- **Módulo (N):** 11 x 23 = **253** (Permite codificar o escopo da tabela ASCII)
-- **Função Totiente de Euler (Fi de N):** (11 - 1) x (23 - 1) = **220**
-- **Expoente Público (e):** **7** (Primo entre si com 220)
-- **Expoente Privado (d):** **63** (O inverso multiplicativo modular de e, pois (7 x 63) mod 220 = 1)
+### 1. Aba 1: Criptografia Assimétrica (RSA Didático)
+*   **Chaves de Texto Personalizadas:** Permite simular o uso de chaves a partir de palavras amigáveis para fins conceituais (ex: `CHAVE_PUBLICA_UEMG` para cifrar e `SEGREDOPRIVADO123` para decifrar).
+*   **Sincronização Dinâmica:** O painel de cifragem consome automaticamente a chave pública configurada, simulando um cenário em que a chave pública está disponível a todos em um repositório ou diretório.
+*   **Segurança Visual:** A chave privada é mascarada por padrão (campo do tipo `password`), com opção de exibição (👁️) para reforçar o conceito de sigilo da chave.
+*   **Simulação de Ataques/Falhas Conceituais:** Se o usuário tentar descriptografar a mensagem usando a chave pública, o simulador acusa erro e demonstra que a via é de mão única, gerando dados corrompidos.
+*   **Matemática Detalhada (Passo a Passo):** Um console integrado exibe os cálculos de potência modular para cada caractere da mensagem (Tabela ASCII ➔ Aritmética Modular RSA ➔ Números Cifrados).
 
-### Fórmulas Executadas
-- **Cifragem (Remetente):** C = (M elevado a 7) mod 253
-- **Decifragem (Receptor):** M = (C elevado a 63) mod 253
-*(Onde M é o código ASCII do caractere original e C é o bloco numérico cifrado).*
+### 2. Aba 2: Criptografia Simétrica (Cifra de Vigenère)
+*   **Chave Única Compartilhada:** Demonstra o conceito clássico onde remetente e destinatário precisam combinar previamente o mesmo segredo (ex: `tecnologia`).
+*   **Processamento Alfabético (A-Z):** Limpa o texto original (removendo acentos, números e caracteres especiais) e aplica o deslocamento com base no alfabeto padrão de 26 letras.
+*   **Matemática de Deslocamento:** Exibe o passo a passo de como as letras da mensagem e as letras da chave são pareadas e somadas modularmente sob a base 26.
+
+---
+
+## 🧮 Funcionamento Matemático e Fórmulas
+
+Para permitir que os cálculos ocorram instantaneamente no navegador sem travar a interface, o simulador adota modelos reduzidos de ambos os algoritmos:
+
+### Aritmética do RSA Didático
+O simulador utiliza valores primos pequenos para configurar o par de chaves RSA:
+*   **Números Primos Iniciais:** $p = 11$ e $q = 23$
+*   **Módulo base ($N$):** $11 \times 23 = 253$ (suficiente para abranger toda a tabela ASCII estendida de 0 a 252)
+*   **Função Totiente de Euler ($\phi(N)$):** $(11 - 1) \times (23 - 1) = 220$
+*   **Expoente Público ($e$):** $7$ (primo em relação a 220)
+*   **Expoente Privado ($d$):** $63$ (pois $(7 \times 63) \pmod{220} = 1$)
+
+**Fórmulas Utilizadas:**
+*   **Cifragem (Pública):** $C = M^{7} \pmod{253}$
+*   **Decifragem (Privada):** $M = C^{63} \pmod{253}$
+    *(onde $M$ é o código ASCII decimal do caractere e $C$ é o valor numérico cifrado resultante).*
+
+### Aritmética da Cifra de Vigenère
+Os caracteres são mapeados de $A = 0$ a $Z = 25$. A chave secreta é repetida ciclicamente sobre a mensagem.
+
+**Fórmulas Utilizadas:**
+*   **Cifragem:** $Posição\_Cifrada = (Posição\_Original + Deslocamento\_Chave) \pmod{26}$
+*   **Decifragem:** $Posição\_Original = (Posição\_Cifrada - Deslocamento\_Chave + 26) \pmod{26}$
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-O projeto foi construído utilizando exclusivamente tecnologias web front-end nativas, sem dependências externas ou necessidade de servidores (overhead zero):
-
-- **HTML5:** Estruturação semântica da interface.
-- **CSS3:** Layout responsivo baseado em CSS Grid, Flexbox e design focado em UI/UX para estudantes.
-- **JavaScript (ES6):** Manipulação de DOM, escuta de eventos em tempo real e implementação aritmética com suporte a números inteiros gigantescos (BigInt) para precisão nas potências.
+O simulador foi construído de forma totalmente estática e nativa, com foco em simplicidade de execução:
+*   **HTML5:** Estrutura semântica dos painéis de entrada e resultado.
+*   **CSS3:** Estilização com design moderno (limpo e responsivo), usando Flexbox e Grid Layout para organizar as duas colunas (Cifragem vs. Decifragem).
+*   **JavaScript (ES6+):** Lógica matemática de cifragem, aritmética modular, limpeza de strings e manipulação dinâmica da interface. Utiliza a biblioteca nativa `BigInt` para suportar grandes potências computadas no RSA sem perda de precisão matemática.
 
 ---
 
-## 📦 Como Executar o Projeto
+## 📦 Como Executar
 
-Como o projeto é estritamente client-side, não há necessidade de instalar o Node.js, Docker ou qualquer servidor web:
+Por ser um projeto puramente estático (front-end), não é necessária a instalação de dependências ou servidores locais.
 
-1. Faça o clone deste repositório:
-   
-   git clone [https://github.com/niltonfjunior2/chaves_assimetricas.git](https://github.com/niltonfjunior2/chaves_assimetricas.git)
-   
-2. Navegue até a pasta do projeto.
+1.  Baixe ou clone este repositório:
+    ```bash
+    git clone https://github.com/niltonfjunior2/chaves_assimetricas.git
+    ```
+2.  Navegue até a pasta do projeto.
+3.  Dê um duplo clique no arquivo [index.html](file:///c:/Users/nilto/Workspaces/Diversos/chaves_assimetricas/index.html) ou abra-o em seu navegador de preferência.
 
-3. Abra o arquivo correspondente em qualquer navegador moderno (Chrome, Edge, Firefox, Safari).
+---
 
-## 👨‍🏫 Sugestão de Roteiro Pedagógico para Sala de Aula
+## 👨‍🏫 Roteiro de Aula Prática Sugerido
 
-1. **Definição de Identidade**: Peça para o aluno assumindo o papel de Receptor inventar uma string para sua chave pública (ex: UEMG_CAMPUS) e outra para sua privada.
+Para professores ou palestrantes que queiram utilizar esta ferramenta em aula, recomenda-se o seguinte roteiro:
 
-2. **O Fluxo Tradicional**: Digite uma mensagem no painel do Remetente e clique em Cifrar. Mostre à turma a cadeia de números gerada e explique que aquilo é o que transita de forma exposta na rede.
+### Atividade 1: Entendendo a Criptografia Simétrica (Aba 2)
+1.  **O Segredo Compartilhado:** Defina a palavra-chave secreta (ex: `UEMG`) e explique que ambos os lados precisam conhecê-la antecipadamente.
+2.  **Cifragem e Transmissão:** Escreva um texto original (ex: `SEGURANCA`), clique em **Cifrar** e veja o texto resultante.
+3.  **Matemática:** Clique em **Mostrar Matemática Aplicada** e demonstre como o algoritmo soma as posições das letras da mensagem com as letras da chave no alfabeto.
+4.  **O Problema da Chave:** Altere uma única letra da chave no painel de decifragem e tente decifrar. Mostre aos alunos que qualquer divergência na chave de segurança gera um resultado incompreensível. Discuta com a turma: *Como enviar a chave de forma segura para o receptor sem que um intruso a intercepte?*
 
-3. **O Teste do Hacker (Falha de Conceito)**: Copie o texto cifrado gerado, cole no painel de decifragem e tente usar a Chave Pública para abrir. O sistema gerará um aviso laranja e caracteres corrompidos. Explique que a chave pública serve apenas para cifrar, ela é uma via de mão única.
+### Atividade 2: Entendendo a Criptografia Assimétrica e o RSA (Aba 1)
+1.  **Pares de Chaves:** Explique o conceito de chave pública (conhecida por todos) e chave privada (secreta do receptor).
+2.  **Cifragem Segura:** Escreva uma mensagem no painel do Remetente e clique em **Cifrar**. O resultado será uma sequência de números separados por vírgula.
+3.  **A Unidirecionalidade (O Teste do Invasor):** Copie a sequência numérica gerada, cole-a no painel de decifragem do receptor e tente usar a **chave pública** para decifrar. O sistema irá falhar e retornar caracteres aleatórios. Mostre que a chave pública **apenas cifra** dados e não pode reverter a cifragem.
+4.  **A Abertura com a Chave Privada:** Insira a **chave privada** correta no painel de decifragem e clique em **Decifrar**. O texto original é restaurado com sucesso.
+5.  **Aprofundamento Teórico:** Expanda o painel de matemática do RSA e discuta como o cálculo modular de potências ($C = M^e \pmod N$) funciona como uma função de "via de mão única com alçapão", onde a chave privada é o segredo do alçapão que simplifica a operação reversa.
 
-4. **Quebra do Segredo**: Insira a Chave Privada correta e veja o texto original reaparecer em verde.
-
-5. **Aprofundamento Teórico**: Clique nos botões roxos "Mostrar Matemática Aplicada" para expor as potências modulares e a tabela ASCII aos alunos, conectando a prática à teoria de Segurança da Informação.
+---
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Consulte o arquivo LICENSE para obter mais detalhes.
+Este projeto está licenciado sob a Licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.
