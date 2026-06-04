@@ -67,10 +67,10 @@ Por ser um projeto puramente estático (front-end), não é necessária a instal
 
 1.  Baixe ou clone este repositório:
     ```bash
-    git clone https://github.com/niltonfjunior2/chaves_assimetricas.git
+    git clone https://github.com/niltonfjunior2/simulador_criptografia.git
     ```
 2.  Navegue até a pasta do projeto.
-3.  Dê um duplo clique no arquivo [index.html](file:///c:/Users/nilto/Workspaces/Diversos/chaves_assimetricas/index.html) ou abra-o em seu navegador de preferência.
+3.  Dê um duplo clique no arquivo [index.html](index.html) ou abra-o em seu navegador de preferência.
 
 ---
 
