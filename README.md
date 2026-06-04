@@ -47,8 +47,8 @@ O simulador utiliza valores primos pequenos para configurar o par de chaves RSA:
 Os caracteres são mapeados de $A = 0$ a $Z = 25$. A chave secreta é repetida ciclicamente sobre a mensagem.
 
 **Fórmulas Utilizadas:**
-*   **Cifragem:** $Posição\_Cifrada = (Posição\_Original + Deslocamento\_Chave) \pmod{26}$
-*   **Decifragem:** $Posição\_Original = (Posição\_Cifrada - Deslocamento\_Chave + 26) \pmod{26}$
+*   **Cifragem:** $\text{Posição Cifrada} = (\text{Posição Original} + \text{Deslocamento da Chave}) \pmod{26}$
+*   **Decifragem:** $\text{Posição Original} = (\text{Posição Cifrada} - \text{Deslocamento da Chave} + 26) \pmod{26}$
 
 ---
 
@@ -89,7 +89,7 @@ Para professores ou palestrantes que queiram utilizar esta ferramenta em aula, r
 2.  **Cifragem Segura:** Escreva uma mensagem no painel do Remetente e clique em **Cifrar**. O resultado será uma sequência de números separados por vírgula.
 3.  **A Unidirecionalidade (O Teste do Invasor):** Copie a sequência numérica gerada, cole-a no painel de decifragem do receptor e tente usar a **chave pública** para decifrar. O sistema irá falhar e retornar caracteres aleatórios. Mostre que a chave pública **apenas cifra** dados e não pode reverter a cifragem.
 4.  **A Abertura com a Chave Privada:** Insira a **chave privada** correta no painel de decifragem e clique em **Decifrar**. O texto original é restaurado com sucesso.
-5.  **Aprofundamento Teórico:** Expanda o painel de matemática do RSA e discuta como o cálculo modular de potências ($C = M^e \pmod N$) funciona como uma função de "via de mão única com alçapão", onde a chave privada é o segredo do alçapão que simplifica a operação reversa.
+5.  **Aprofundamento Teórico:** Expanda o painel de matemática do RSA e discuta como o cálculo modular de potências ($C = M^e \pmod{N}$) funciona como uma função de "via de mão única com alçapão", onde a chave privada é o segredo do alçapão que simplifica a operação reversa.
 
 ---
 
