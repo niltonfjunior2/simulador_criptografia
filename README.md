@@ -34,9 +34,9 @@ Para permitir que os cálculos ocorram instantaneamente no navegador sem travar 
 O simulador utiliza valores primos pequenos para configurar o par de chaves RSA:
 *   **Números Primos Iniciais:** $p = 11$ e $q = 23$
 *   **Módulo base** ($N$): $11 \times 23 = 253$ (suficiente para abranger toda a tabela ASCII estendida de 0 a 252)
-*   **Função Totiente de Euler** ($\phi(N)$): $(11 - 1) \times (23 - 1) = 220$
+*   **Função Totiente de Euler** ($`\phi(N)`$): $`(11 - 1) \times (23 - 1) = 220`$
 *   **Expoente Público** ($e$): $7$ (primo em relação a 220)
-*   **Expoente Privado** ($d$): $63$ (pois $(7 \times 63) \pmod{220} = 1$)
+*   **Expoente Privado** ($d$): $63$ (pois $`(7 \times 63) \pmod{220} = 1`$)
 
 **Fórmulas Utilizadas:**
 *   **Cifragem (Pública):** $C = M^{7} \pmod{253}$
