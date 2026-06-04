@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Criptografia: Simétrica vs Assimétrica</title>
+    <title>Simulador de Criptografia: Simétrica & Assimétrica</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -278,25 +278,68 @@
                 margin-bottom: 5px;
             }
         }
+
+        /* Cartões de Explicação de Conceitos */
+        .concept-card {
+            background: linear-gradient(135deg, #ffffff, #fcfcfc);
+            border: 1px solid #e1e8ed;
+            border-left: 5px solid #3498db;
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.6;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .concept-card h3 {
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .concept-card.symmetric {
+            border-left-color: #16a085;
+        }
     </style>
 </head>
 
 <body>
 
-    <h1>Simulador Pedagógico de Criptografia</h1>
+    <h1>Simulador de Criptografia: Simétrica & Assimétrica</h1>
     <div class="info">
-        <strong>Uso em Aula:</strong> Alterne entre as abas superiores para demonstrar a diferença prática entre os dois
-        modelos de chaves abordados na ementa.
+        Alterne entre as abas superiores para demonstrar a diferença prática entre os dois
+        modelos de chaves de criptografia.
     </div>
 
     <div class="tabs">
-        <div class="tab-btn active" onclick="switchTab(event, 'aba-assimetrica')">Aba 1: Chaves Assimétricas (RSA)</div>
-        <div class="tab-btn" onclick="switchTab(event, 'aba-simetrica')">Aba 2: Chave Simétrica (Vigenère)</div>
+        <div class="tab-btn active" onclick="switchTab(event, 'aba-assimetrica')">Chaves Assimétricas (RSA)</div>
+        <div class="tab-btn" onclick="switchTab(event, 'aba-simetrica')">Chave Simétrica (Vigenère)</div>
     </div>
 
     <div class="container">
 
         <div id="aba-assimetrica" class="tab-content active">
+            <div class="concept-card">
+                <h3><span>🔒</span> O que é o RSA (Chaves Assimétricas)?</h3>
+                <p style="margin: 0;">O algoritmo <strong>RSA (Rivest-Shamir-Adleman)</strong> é a base da segurança na
+                    internet moderna. Ele funciona utilizando um <strong>par de chaves</strong> diferentes mas
+                    matematicamente relacionadas entre si: uma <strong>Chave Pública</strong> (compartilhada
+                    abertamente, usada por qualquer pessoa para criptografar uma mensagem) e uma <strong>Chave
+                        Privada</strong> (guardada a sete chaves pelo receptor, a única capaz de descriptografar). Essa
+                    abordagem resolve o problema de ter que compartilhar previamente uma senha secreta comum.</p>
+            </div>
+
             <div class="grid">
                 <div class="card">
                     <h2>Chave Pública do Receptor</h2>
@@ -342,7 +385,8 @@
                         <p>O caractere é convertido para seu código ASCII decimal (<code>M</code>) usando
                             <code>charCodeAt(0)</code>. Em seguida, aplica-se a potência do expoente público (<strong>e
                                 = 7</strong>) sob o resto da divisão do módulo base (<strong>N = 253</strong>). Fórmula:
-                            <code>C = (M⁷) mod 253</code>.</p>
+                            <code>C = (M⁷) mod 253</code>.
+                        </p>
                     </div>
                 </div>
 
@@ -376,10 +420,22 @@
         </div>
 
         <div id="aba-simetrica" class="tab-content">
+            <div class="concept-card symmetric">
+                <h3><span>🔑</span> O que é a Cifra de Vigenère (Chave Simétrica)?</h3>
+                <p style="margin: 0;">A <strong>Cifra de Vigenère</strong> é um clássico exemplo de criptografia
+                    <strong>simétrica</strong> (como o AES moderno). Nela, o remetente e o destinatário compartilham
+                    <strong>exatamente a mesma chave secreta</strong> (uma palavra ou frase) para criptografar e
+                    descriptografar. A cifra opera aplicando uma série de diferentes cifras de César ao longo da
+                    mensagem, deslocando cada caractere de acordo com a posição correspondente da letra na chave
+                    secreta. O segredo da comunicação depende inteiramente de manter essa única chave segura.</p>
+            </div>
+
             <div class="grid">
                 <div class="card symmetric" style="grid-column: 1 / -1;">
                     <h2>Compartilhamento de Chave Simétrica Única</h2>
-                    <p class="hint">Neste modelo, o Remetente e o Receptor **precisam combinar previamente** a mesma
+                    <p class="hint">Neste modelo, o Remetente e o Receptor <strong>precisam combinar
+                            previamente</strong> a
+                        mesma
                         palavra-chave secreta.</p>
                     <label for="symKeyInput">Defina a Palavra-Chave Secreta Compartilhada:</label>
                     <div class="input-group">
@@ -413,7 +469,8 @@
                         <p>O texto e a chave são convertidos para posições de 0 a 25 (A=0, B=1...). A palavra-chave é
                             repetida sob a mensagem. Aplica-se a fórmula:
                             <code>Posição_Cifrada = (Posição_Original + Deslocamento_Chave) mod 26</code>. Se passar de
-                            25, o alfabeto reinicia.</p>
+                            25, o alfabeto reinicia.
+                        </p>
                     </div>
                 </div>
 
@@ -437,7 +494,8 @@
                         <p>O processo realiza a operação matemática inversa da cifragem, realizando a subtração
                             alfabética elemento por elemento:
                             <code>Posição_Original = (Posição_Cifrada - Deslocamento_Chave + 26) mod 26</code>.
-                            Adiciona-se 26 para evitar resultados negativos na aritmética modular.</p>
+                            Adiciona-se 26 para evitar resultados negativos na aritmética modular.
+                        </p>
                     </div>
                 </div>
             </div>

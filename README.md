@@ -1,4 +1,4 @@
-# 🔒 Simulador Pedagógico de Criptografia: Simétrica vs. Assimétrica
+# 🔒 Simulador de Criptografia: Simétrica & Assimétrica
 
 Este é um projeto web interativo e de código aberto desenvolvido para fins **didáticos e acadêmicos**. O objetivo é facilitar a compreensão prática e visual dos dois principais modelos de criptografia estudados em disciplinas de Segurança da Informação, Redes de Computadores e Sistemas de Informação: a **Criptografia Simétrica** (representada pela Cifra de Vigenère) e a **Criptografia Assimétrica** (representada pelo algoritmo RSA didático).
 
@@ -11,6 +11,7 @@ O simulador é executado inteiramente no navegador (client-side), oferecendo exp
 O projeto é dividido em duas abas didáticas que separam claramente os conceitos:
 
 ### 1. Aba 1: Criptografia Assimétrica (RSA Didático)
+*   **Cartão de Conceitos Teóricos:** Um cartão explicativo integrado explica os fundamentos do algoritmo RSA e como o par de chaves pública/privada funciona para garantir a confidencialidade sem o compartilhamento prévio de segredos.
 *   **Chaves de Texto Personalizadas:** Permite simular o uso de chaves a partir de palavras amigáveis para fins conceituais (ex: `CHAVE_PUBLICA_UEMG` para cifrar e `SEGREDOPRIVADO123` para decifrar).
 *   **Sincronização Dinâmica:** O painel de cifragem consome automaticamente a chave pública configurada, simulando um cenário em que a chave pública está disponível a todos em um repositório ou diretório.
 *   **Segurança Visual:** A chave privada é mascarada por padrão (campo do tipo `password`), com opção de exibição (👁️) para reforçar o conceito de sigilo da chave.
@@ -18,6 +19,7 @@ O projeto é dividido em duas abas didáticas que separam claramente os conceito
 *   **Matemática Detalhada (Passo a Passo):** Um console integrado exibe os cálculos de potência modular para cada caractere da mensagem (Tabela ASCII ➔ Aritmética Modular RSA ➔ Números Cifrados).
 
 ### 2. Aba 2: Criptografia Simétrica (Cifra de Vigenère)
+*   **Cartão de Conceitos Teóricos:** Um cartão explicativo integrado ensina a mecânica da criptografia simétrica através da Cifra de Vigenère, abordando a necessidade e os riscos do compartilhamento de uma única chave secreta.
 *   **Chave Única Compartilhada:** Demonstra o conceito clássico onde remetente e destinatário precisam combinar previamente o mesmo segredo (ex: `tecnologia`).
 *   **Processamento Alfabético (A-Z):** Limpa o texto original (removendo acentos, números e caracteres especiais) e aplica o deslocamento com base no alfabeto padrão de 26 letras.
 *   **Matemática de Deslocamento:** Exibe o passo a passo de como as letras da mensagem e as letras da chave são pareadas e somadas modularmente sob a base 26.
