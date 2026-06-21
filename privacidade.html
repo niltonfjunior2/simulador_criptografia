@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade - Simulador de Criptografia</title>
+    <link rel="icon" href="Chaves.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base:       #f4f7f6;
+            --bg-panel:      #ffffff;
+            --border:        #dcdde1;
+            --text-primary:  #2c3e50;
+            --text-secondary:#7f8c8d;
+            --text-muted:    #bdc3c7;
+            --accent-blue:   #3498db;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-base); color: var(--text-primary); min-height: 100vh; padding: 24px; display: flex; flex-direction: column; }
+        
+        .container { flex: 1; max-width: 800px; margin: 0 auto; width: 100%; padding-top: 40px; background: var(--bg-panel); padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        
+        h1 { font-family: 'Syne', sans-serif; font-size: 2.2em; margin-bottom: 20px; color: var(--text-primary); }
+        h2 { font-size: 1.4em; margin-top: 30px; margin-bottom: 15px; color: var(--text-primary); }
+        p { font-size: 1em; line-height: 1.6; color: var(--text-secondary); margin-bottom: 15px; }
+
+        .back-link { display: inline-block; margin-top: 30px; font-weight: 700; color: var(--accent-blue); text-decoration: none; font-size: 0.9em; }
+
+        /* FOOTER */
+        footer { margin-top: 50px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        .footer-left { display: flex; align-items: center; gap: 12px; filter: grayscale(1); transition: filter 0.3s; }
+        .footer-left:hover { filter: grayscale(0); }
+        .footer-left img { height: 32px; width: auto; opacity: 0.9; }
+        .footer-title { font-weight: 800; color: var(--text-primary); font-size: 0.95em; letter-spacing: -0.2px; font-family: 'Syne', sans-serif; }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.85em; font-weight: 700; transition: color 0.15s; }
+        .footer-links a:hover { color: var(--accent-blue); }
+        .footer-copy { font-family: monospace; font-size: 0.7em; color: var(--text-muted); text-align: right; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Política de Privacidade</h1>
+    <p>A privacidade dos usuários do Simulador de Criptografia é levada a sério. Esta política detalha como lidamos com os dados inseridos na ferramenta.</p>
+    
+    <h2>1. Processamento Local</h2>
+    <p>O Simulador de Criptografia opera 100% no lado do cliente (no seu navegador). Isso significa que as palavras-chave, textos originais, chaves privadas ou públicas e textos cifrados <strong>não são enviados para nenhum servidor externo</strong>.</p>
+
+    <h2>2. Coleta de Dados</h2>
+    <p>Não coletamos, armazenamos ou rastreamos nenhuma informação inserida por você durante a utilização deste sistema. Toda a execução matemática do algoritmo RSA e Vigenère acontece apenas na memória temporária do seu dispositivo.</p>
+
+    <h2>3. Cookies e Rastreamento</h2>
+    <p>O simulador não utiliza cookies de rastreamento comercial nem mecanismos de rastreio de comportamento. É um projeto com fins puramente educacionais e acadêmicos.</p>
+
+    <h2>4. Contato</h2>
+    <p>Caso tenha dúvidas em relação a este simulador e seu funcionamento, consulte a página "Sobre" para conhecer o autor e estabelecer contato.</p>
+
+    <a href="index.html" class="back-link">&larr; Voltar ao Simulador</a>
+</div>
+
+<footer>
+    <div class="footer-left">
+        <img src="Chaves.png" alt="Simulador de Criptografia">
+        <span class="footer-title">Simulador de Criptografia</span>
+    </div>
+    <div class="footer-links">
+        <a href="sobre.html">Sobre</a>
+        <a href="termos.html">Termos</a>
+        <a href="privacidade.html">Privacidade</a>
+    </div>
+    <div class="footer-copy">
+        &copy; 2026 Nilton F. Junior.<br>
+        Ferramenta Didática.
+    </div>
+</footer>
+
+</body>
+</html>

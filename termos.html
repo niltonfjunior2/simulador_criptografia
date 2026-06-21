@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Uso - Simulador de Criptografia</title>
+    <link rel="icon" href="Chaves.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base:       #f4f7f6;
+            --bg-panel:      #ffffff;
+            --border:        #dcdde1;
+            --text-primary:  #2c3e50;
+            --text-secondary:#7f8c8d;
+            --text-muted:    #bdc3c7;
+            --accent-blue:   #3498db;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-base); color: var(--text-primary); min-height: 100vh; padding: 24px; display: flex; flex-direction: column; }
+        
+        .container { flex: 1; max-width: 800px; margin: 0 auto; width: 100%; padding-top: 40px; background: var(--bg-panel); padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border); }
+        
+        h1 { font-family: 'Syne', sans-serif; font-size: 2.2em; margin-bottom: 20px; color: var(--text-primary); }
+        h2 { font-size: 1.4em; margin-top: 30px; margin-bottom: 15px; color: var(--text-primary); }
+        p { font-size: 1em; line-height: 1.6; color: var(--text-secondary); margin-bottom: 15px; }
+        ul { margin-bottom: 15px; padding-left: 20px; color: var(--text-secondary); line-height: 1.6; }
+
+        .back-link { display: inline-block; margin-top: 30px; font-weight: 700; color: var(--accent-blue); text-decoration: none; font-size: 0.9em; }
+
+        /* FOOTER */
+        footer { margin-top: 50px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        .footer-left { display: flex; align-items: center; gap: 12px; filter: grayscale(1); transition: filter 0.3s; }
+        .footer-left:hover { filter: grayscale(0); }
+        .footer-left img { height: 32px; width: auto; opacity: 0.9; }
+        .footer-title { font-weight: 800; color: var(--text-primary); font-size: 0.95em; letter-spacing: -0.2px; font-family: 'Syne', sans-serif; }
+        .footer-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.85em; font-weight: 700; transition: color 0.15s; }
+        .footer-links a:hover { color: var(--accent-blue); }
+        .footer-copy { font-family: monospace; font-size: 0.7em; color: var(--text-muted); text-align: right; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Termos de Uso</h1>
+    <p>Bem-vindo ao Simulador de Criptografia. Ao acessar e utilizar este sistema, você concorda com os presentes termos e condições.</p>
+    
+    <h2>1. Finalidade do Sistema</h2>
+    <p>O Simulador de Criptografia é uma ferramenta com propósito estritamente educacional e didático. Ele não se destina a ser utilizado para proteção de dados sensíveis, envio de mensagens confidenciais em ambientes de produção, ou qualquer finalidade comercial.</p>
+
+    <h2>2. Uso Permitido</h2>
+    <p>Você pode utilizar este simulador para:</p>
+    <ul>
+        <li>Aprender os conceitos de criptografia Simétrica e Assimétrica.</li>
+        <li>Demonstrar matematicamente o funcionamento dos algoritmos de cifra.</li>
+        <li>Utilizar como apoio em aulas, seminários ou pesquisas acadêmicas.</li>
+    </ul>
+
+    <h2>3. Limitação de Responsabilidade</h2>
+    <p>A ferramenta não emprega padrões de segurança robustos necessários para o mundo real. O desenvolvedor não se responsabiliza por perdas de dados, danos indiretos, ou qualquer consequência resultante do uso indevido deste simulador para o tráfego de informações reais.</p>
+
+    <h2>4. Alterações nos Termos</h2>
+    <p>Estes termos podem ser atualizados periodicamente para refletir novas funcionalidades ou mudanças pedagógicas do sistema.</p>
+
+    <a href="index.html" class="back-link">&larr; Voltar ao Simulador</a>
+</div>
+
+<footer>
+    <div class="footer-left">
+        <img src="Chaves.png" alt="Simulador de Criptografia">
+        <span class="footer-title">Simulador de Criptografia</span>
+    </div>
+    <div class="footer-links">
+        <a href="sobre.html">Sobre</a>
+        <a href="termos.html">Termos</a>
+        <a href="privacidade.html">Privacidade</a>
+    </div>
+    <div class="footer-copy">
+        &copy; 2026 Nilton F. Junior.<br>
+        Ferramenta Didática.
+    </div>
+</footer>
+
+</body>
+</html>
